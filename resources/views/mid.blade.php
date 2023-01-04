@@ -81,14 +81,17 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Mid
                 </div>
 
                 <div class="links">
-                    <a href="http://localhost:8888/manasys/public/mil">mil</a>
-                    <a href="http://localhost:8888/manasys/public/mnr">mnr</a>
-                    <a href="http://localhost:8888/manasys/public/mid">mid</a>
-                    <a href="http://localhost:8888/manasys/public/mie">mie</a>
+                    <a href="https://laravel.com/docs">Docs</a>
+                    <a href="https://laracasts.com">Laracasts</a>
+                    <a href="https://laravel-news.com">News</a>
+                    <a href="https://blog.laravel.com">Blog</a>
+                    <a href="https://nova.laravel.com">Nova</a>
+                    <a href="https://forge.laravel.com">Forge</a>
+                    <a href="https://vapor.laravel.com">Vapor</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>

@@ -81,15 +81,28 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Mil~商品情報一覧~
                 </div>
 
-                <div class="links">
-                    <a href="http://localhost:8888/manasys/public/mil">mil</a>
-                    <a href="http://localhost:8888/manasys/public/mnr">mnr</a>
-                    <a href="http://localhost:8888/manasys/public/mid">mid</a>
-                    <a href="http://localhost:8888/manasys/public/mie">mie</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div class=>
+                    <label>検索したいキーワードを入力してください。</label>
+                    <input type="search" name="search" placeholder="キーワードを入力">
+                    <input type="submit" name="submit" value="検索">
+                </div>
+                <div>
+                    <select name="company_name" >
+                        <option value="">企業名検索</option>
+                        <option value="">~</option>
+                    </select>
+                <div>
+                    <a type='button' href="{{ route('mnr') }}">新規登録</a>
+                </div>
+                <div>
+                    <li>
+                        <label>商品リスト</label>
+                        <input type="button" name="detaile" value="詳細">
+                        <input type="button" name="delete" value="削除">
+                    </li>
                 </div>
             </div>
         </div>

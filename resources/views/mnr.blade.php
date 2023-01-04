@@ -81,15 +81,39 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Mnr~商品新規登録~
                 </div>
+                <div>
+                    <form action="#" method="post">
 
-                <div class="links">
-                    <a href="http://localhost:8888/manasys/public/mil">mil</a>
-                    <a href="http://localhost:8888/manasys/public/mnr">mnr</a>
-                    <a href="http://localhost:8888/manasys/public/mid">mid</a>
-                    <a href="http://localhost:8888/manasys/public/mie">mie</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                        <p>商品名 :
+                        <input type="text" placeholder="商品名"></p>
+
+                        <p>メーカー :
+                        <select value="メーカー">
+                            <option>~</option>
+                        </select></p>
+
+                        <p>価格 :
+                        <input type="text" placeholder="価格"></p>
+
+                        <p>在庫数 :
+                        <input type="text" placeholder="在庫数"></p>
+
+                        <p>商品目 :
+                        <input type="text" placeholder="商品名"></p>
+
+                        <p>コメント :
+                        <textarea name="comment" placeholder="コメント"></textarea></p>
+
+                        <p>画像 :
+                        <input type="file"></p>
+                    </form>
+
+                    <a type='button' href="{{ route('mil') }}">登録</a>
+                </div>
+                <div>
+                    <a type='button' href="{{ route('mil') }}">戻る</a>
                 </div>
             </div>
         </div>
