@@ -12,5 +12,14 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
+
+        // ProductsTableSeederを読み込むように指定
+        //$this->call(ProductsTableSeeder::class);
+
+        // CompaniesTableSeederを読み込むように指定
+        $this->call(CompaniesTableSeeder::class);
+
+        // SalesTableSeederを読み込むように指定
+        //$this->call(SalesTableSeeder::class);
     }
 }

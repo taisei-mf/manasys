@@ -84,13 +84,13 @@
                     Laravel
                 </div>
 
-                <div class="links">
-                    <a href="http://localhost:8888/manasys/public/mil">mil</a>
-                    <a href="http://localhost:8888/manasys/public/mnr">mnr</a>
-                    <a href="http://localhost:8888/manasys/public/mid">mid</a>
-                    <a href="http://localhost:8888/manasys/public/mie">mie</a>
+                <!--<div class="links">
+                    <a href="http://localhost:8888/manasys/public/list">mil</a>
+                    <a href="http://localhost:8888/manasys/public/regist">mnr</a>
+                    <a href="http://localhost:8888/manasys/public/detail">mid</a>
+                    <a href="http://localhost:8888/manasys/public/edit">mie</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                </div>-->
             </div>
         </div>
     </body>
