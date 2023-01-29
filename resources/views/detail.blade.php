@@ -24,7 +24,11 @@
                     <tbody>
                         <tr>
                             <td>{{ $products -> id }}</td>
-                            <td>{{ $products -> img_path }}</td>
+                            <?php
+                            $imgpath = $products -> img_path;
+                            //echo $imgpath;
+                            ?>
+                            <td><img src="{{ url('storage/' . $imgpath) }}" width=15% height=15%></td>
                             <td>{{ $products -> product_name }}</td>
                             <td>{{ $products -> company_id }}</td>
                             <td>{{ $products -> price }}</td>

@@ -11,6 +11,7 @@ use App\Models\Company;
 use App\Http\Requests\ManasysRequest;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -85,10 +86,20 @@ class ProductController extends Controller
         // トランザクション開始
         DB::beginTransaction();
 
+        if(isset($request->img_path)){
+        // 画像フォームでリクエストした画像を取得
+        $img = $request->file('img_path');
+        // storage > public > img配下に画像が保存される
+        $path = $img->store('img', 'public');
+        }
+        else{
+            $path = null;
+        }
+
         try {
             // 登録処理呼び出し
             $model = new Product();
-            $model->registProduct($request);
+            $model->registProduct($request, $path);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
@@ -164,14 +175,46 @@ class ProductController extends Controller
     /**
      * 更新処理
      */
-    public function update(Request $request, $id)
+    public function update(ManasysRequest $request, $id)
     {
+        if(isset($request->img_path)){
+        // 画像フォームでリクエストした画像を取得
+        $img = $request->file('img_path');
+        // storage > public > img配下に画像が保存される
+        $path = $img->store('img', 'public');
+        }
+        else{
+            $path = null;
+        }
+
+
         $product = Product::find($id);
 
-        $updateProduct = $this->product -> updateProduct($request, $product);
+        $updateProduct = $this->product -> updateProduct($request, $product, $path);
 
         //return redirect()->route('edit' ,$result->id);
         return redirect(route('edit', $id));
+    }
+
+    /**
+     * 画像表示処理
+     */
+    public function index()
+    {
+        return view('item.index');
+    }
+
+    public function create(Request $request)
+    {
+        return view('item.create');
+    }
+
+    public function store(Request $request)
+    {
+        // 画像フォームでリクエストした画像を取得
+        $img = $request->file('img_path');
+        // storage > public > img配下に画像が保存される
+        $path = $img->store('img','public');
     }
 
 }

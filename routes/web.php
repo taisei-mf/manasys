@@ -22,6 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/','LoginController@showLoginForm')->name('/');
 
+
 //list表示
 Route::get('/list','ProductController@showList')->name('list');
 //Route::get('/pproto','ProductController@showList')->name('list');
@@ -51,6 +52,15 @@ Route::put('/list','ProductController@searchCompany')->name('company.search');
 //更新処理ルート
 Route::post('/edit{id}','ProductController@update')->name('update');
 
+
+//画像表示ルート
+//Route::get('/', [ItemController::class, 'index'])->name('item.index');
+//Route::get('/create', [ItemController::class, 'create'])->name('item.create');
+//Route::post('/store', [ItemController::class, 'store'])->name('item.store');
+
+Route::patch('/list', 'ProductController@index')->name('item.index');
+Route::get('/create', 'ProductController@create')->name('item.create');
+Route::post('/store', 'ProductController@store')->name('item.store');
 
 
 /*

@@ -21,19 +21,19 @@ class ProductsTableSeeder extends Seeder
                          'price' => 100,
                          'stock' => 200,
                          'comment' => 'You can write!',
-                         'img_path' => 'a'],
+                         'img_path' => 'enpitu.png'],
                         ['company_id' => '2',
                         'product_name' => 'Eracer',
                         'price' => 50,
                         'stock' => 100,
                         'comment' => 'You can wipe out!',
-                        'img_path' => 'a'] ,
+                        'img_path' => 'eraser.png'] ,
                         ['company_id' => '2',
                         'product_name' => 'Ruler',
                         'price' => 60,
                         'stock' => 100,
                         'comment' => 'You can measure!',
-                        'img_path' => 'a']
+                        'img_path' => 'ruler.jpeg']
         ];
 
         //登録

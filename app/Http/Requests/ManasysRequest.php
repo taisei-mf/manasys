@@ -25,6 +25,8 @@ class ManasysRequest extends FormRequest
     {
         return [
             'product_name' => 'required | max:255',
+            'price' => 'required',
+            'stock' => 'required',
             'comment' => 'max:10000',
         ];
     }
@@ -38,6 +40,8 @@ class ManasysRequest extends FormRequest
     {
         return [
             'product_name' => '商品名',
+            'price' => '価格',
+            'stock' => '在庫数',
             'comment' => 'コメント',
         ];
     }
@@ -49,9 +53,11 @@ class ManasysRequest extends FormRequest
      */
     public function messages() {
         return [
-            'title.required' => ':attributeは必須項目です。',
-            'title.max' => ':attributeは:max字以内で入力してください。',
-            'comment.max' => ':attributeは:max字以内で入力してください。',
+            'product_name.required' => ':attributeは必須項目です。',
+            'product_name.max' => ':attributeは:max字以内で入力してください。',
+            'price.required' => ':attributeは必須項目です。',
+            'stock.required' => ':attributeは必須項目です。',
+            'comment.max' => '::attributeは:max字以内で入力してください。',
         ];
     }
 }

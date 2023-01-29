@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -47,7 +48,7 @@ class Product extends Model
     }
 
 
-    public function registProduct($data) {
+    public function registProduct($data, $path) {
         // 登録処理
         DB::table('products')->insert([
             'company_id' => $data->company_id,
@@ -55,7 +56,7 @@ class Product extends Model
             'price' => $data->price,
             'stock' => $data->stock,
             'comment' => $data->comment,
-            'img_path' => $data->img_path,
+            'img_path' => $path,
             'created_at' => NOW(),
             'updated_at' => NOW(),
         ]);
@@ -95,14 +96,14 @@ class Product extends Model
     /**
      * 更新処理
      */
-    public function updateProduct($request, $product){
+    public function updateProduct($request, $product, $path){
         $result = $product->fill([
             'product_name' => $request->product_name,
             'company_id' => $request->company_id,            
             'price' => $request->price,
             'stock' => $request->stock,
             'comment' => $request->comment,
-            'img_path' => $request->img_path,
+            'img_path' => $path,
             'created_at' => NOW(),
             'updated_at' => NOW(),
         ])->save();
