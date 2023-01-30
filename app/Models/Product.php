@@ -38,16 +38,42 @@ class Product extends Model
 
         return $products;
     }
-    
-    public function getListt() {
-        // companiesテーブルからデータを取得
-        $companies = DB::table('companies')->get();
 
-        //dd($companies);
+    /**
+     * 検索処理（商品名）
+     */
+    public function searchKeyword($keyword){
+
+        $query = Product::query();
+
+        if(!empty($keyword)) {
+            $query->where('product_name', 'LIKE', "%{$keyword}%");
+        }
+
+        $products = $query->get();
+
+        return $products;
+    }
+
+    /**
+     * 検索処理（企業ID）
+     */
+    public function searchCID($keyword_id){
+
+        $query = Product::query();
+
+        if(!empty($keyword_id)) {
+            $query->where('company_id', 'LIKE', "%{$keyword_id}%");
+        }
+
+        $companies = $query->get();
+
         return $companies;
     }
 
-
+    /**
+     * 登録処理
+     */    
     public function registProduct($data, $path) {
         // 登録処理
         DB::table('products')->insert([

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class Company extends Model
 {
@@ -13,13 +14,12 @@ class Company extends Model
         return $this->hasMany('App\Models\Product');
     }
 
-
     public function getListt() {
         // companiesテーブルからデータを取得
         $companies = DB::table('companies')->get();
 
-
         //dd($companies);
         return $companies;
     }
+
 }

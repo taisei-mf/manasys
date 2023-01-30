@@ -47,7 +47,7 @@ Route::post('/destroy{id}', 'ProductController@destroy')->name('product.destroy'
 
 //検索処理ルート
 Route::post('/list','ProductController@searchProduct')->name('product.search');
-Route::put('/list','ProductController@searchCompany')->name('company.search');
+Route::put('/list','ProductController@searchCompanyID')->name('company.search');
 
 //更新処理ルート
 Route::post('/edit{id}','ProductController@update')->name('update');

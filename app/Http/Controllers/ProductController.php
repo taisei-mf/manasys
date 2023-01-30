@@ -19,6 +19,7 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->product = new Product();
+        $this->company = new company();
     }
 
     //list表示
@@ -28,9 +29,7 @@ class ProductController extends Controller
         //$model = new Product();
         //$products = $model->getList();
         $products = $this->product -> getList();
-
-        $modell = new Company();
-        $companies = $modell->getListt();
+        $companies = $this->company -> getListt();
 
         return view('list', compact('products', 'companies'));
 
@@ -51,8 +50,7 @@ class ProductController extends Controller
     //regist表示
     public function showRegist()
     {
-        $modell = new Company();
-        $companies = $modell->getListt();
+        $companies = $this->company -> getListt();
 
         return view('regist', compact('companies'));
     }
@@ -70,13 +68,10 @@ class ProductController extends Controller
     {
         $products = $this->product -> getDesignate($id);
 
-        $modell = new Company();
-        $companies = $modell->getListt();
+        $companies = $this->company -> getListt();
 
         return view('edit', ['products' => $products, 'companies' => $companies]);
     }
-
-
 
     /**
      * 登録処理
@@ -98,8 +93,7 @@ class ProductController extends Controller
 
         try {
             // 登録処理呼び出し
-            $model = new Product();
-            $model->registProduct($request, $path);
+            $this->product -> registProduct($request, $path);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
@@ -116,8 +110,19 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        // 指定されたIDのレコードを削除
-        $deleteProduct = $this->product->deleteProductById($id);
+        // トランザクション開始
+        DB::beginTransaction();
+
+        try {
+
+            // 指定されたIDのレコードを削除
+            $deleteProduct = $this->product->deleteProductById($id);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back();
+        }
 
         // 削除したら一覧画面にリダイレクト
         return redirect()->route('list');
@@ -131,52 +136,35 @@ class ProductController extends Controller
     {
         $keyword = $request->input('keyword');
 
-        $modell = new Company();
-        $companies = $modell->getListt();
+        $companies = $this->company -> getListt();
 
-        $query = Product::query();
+        $products = $this->product -> searchKeyword($keyword);
 
-        if(!empty($keyword)) {
-            $query->where('product_name', 'LIKE', "%{$keyword}%");
-                //->orWhere('author', 'LIKE', "%{$keyword}%");
-        }
-
-        $products = $query->get();
-
-        return view('list', compact('products', 'keyword', 'companies'));
-        //return redirect()->route('list' , compact('products', 'keyword'));
+        return view('list', compact('products', 'companies', 'keyword'));
     }
-
+    
     /**
      * 検索処理(企業ID)
      */
-    public function searchCompany(Request $request)
+    public function searchCompanyID(Request $request)
     {
         $keyword_id = $request->input('company_id');
+        
+        $companies = $this->company -> getListt();
 
-        //dd($keyword_id);
+        $products = $this->product -> searchCID($keyword_id);
 
-        $modell = new Company();
-        $companies = $modell->getListt();
-
-        $query = Product::query();
-
-        if(!empty($keyword_id)) {
-            $query->where('company_id', 'LIKE', "%{$keyword_id}%");
-                //->orWhere('author', 'LIKE', "%{$keyword}%");
-        }
-
-        $products = $query->get();
-
-        return view('list', compact('products', 'keyword_id', 'companies'));
+        return view('list', compact('products', 'companies', 'keyword_id'));
     }
-
 
     /**
      * 更新処理
      */
     public function update(ManasysRequest $request, $id)
     {
+        // トランザクション開始
+        DB::beginTransaction();
+
         if(isset($request->img_path)){
         // 画像フォームでリクエストした画像を取得
         $img = $request->file('img_path');
@@ -187,34 +175,19 @@ class ProductController extends Controller
             $path = null;
         }
 
+        try {
+            // 指定されたIDのレコードを更新
+            $product = Product::find($id);
 
-        $product = Product::find($id);
+            $updateProduct = $this->product -> updateProduct($request, $product, $path);
 
-        $updateProduct = $this->product -> updateProduct($request, $product, $path);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back();
+        }
 
-        //return redirect()->route('edit' ,$result->id);
         return redirect(route('edit', $id));
-    }
-
-    /**
-     * 画像表示処理
-     */
-    public function index()
-    {
-        return view('item.index');
-    }
-
-    public function create(Request $request)
-    {
-        return view('item.create');
-    }
-
-    public function store(Request $request)
-    {
-        // 画像フォームでリクエストした画像を取得
-        $img = $request->file('img_path');
-        // storage > public > img配下に画像が保存される
-        $path = $img->store('img','public');
     }
 
 }
