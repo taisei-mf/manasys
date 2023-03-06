@@ -11,12 +11,16 @@ class Product extends Model
     //hasMany設定
     public function sales()
     {
+        //usersテーブルとのリレーションを定義するuserメソッド
+        //return $this->belongsTo(Sale::class);
         return $this->hasMany('App\Models\Sale');
     }
 
     //belongsTo設定
     public function companies()
     {
+        //reviewsテーブルとのリレーションを定義するreviewメソッド
+        //return $this->belongsTo(Company::class);
         return $this->belongsTo('App\Models\Company');
     }
 
@@ -42,33 +46,43 @@ class Product extends Model
     /**
      * 検索処理（商品名）
      */
-    public function searchKeyword($keyword){
+    public function searchKeyword($product_name, $company_id, $bottom_price, $top_price, $bottom_stock, $top_stock){
 
         $query = Product::query();
 
-        if(!empty($keyword)) {
-            $query->where('product_name', 'LIKE', "%{$keyword}%");
+        if(!empty($product_name)) {
+            $query->where('product_name', 'LIKE', "%{$product_name}%");
+        }
+
+        if(!empty($company_id)) {
+            $query->where('company_id', 'LIKE', "%{$company_id}%");
+        }
+
+        if(!empty($bottom_price) && !empty($top_price)) {
+            $query->whereBetween('price', [$bottom_price, $top_price]);
+        }
+
+        if(!empty($bottom_stock) && !empty($top_stock)) {
+            $query->whereBetween('stock', [$bottom_stock, $top_stock]);
         }
 
         $products = $query->get();
 
         return $products;
+
     }
 
     /**
      * 検索処理（企業ID）
      */
-    public function searchCID($keyword_id){
+    public function searchCID(){
 
         $query = Product::query();
-
-        if(!empty($keyword_id)) {
-            $query->where('company_id', 'LIKE', "%{$keyword_id}%");
-        }
-
         $companies = $query->get();
 
         return $companies;
+
+
     }
 
     /**
@@ -136,4 +150,40 @@ class Product extends Model
 
         return $result;
     }
+
+    /**
+     * api試験
+     */
+    public function apiStock($sale){
+        //
+        //console.log($sale);
+        $p_id = $sale->product_id;
+        $product = Product::find($p_id);
+
+        $p_stock = $product->stock;
+
+        if($p_stock == 0){
+            //買えませんのアラート
+            $result = [
+                'result' => false,
+                'error' => [
+                'messages' => [$e->getMessage()]
+                ],
+            ];
+            return $this->resConversionJson($result, $e->getCode());
+        }
+        elseif($p_stock != 0){
+            $p_stock --;
+
+            $result = $product->fill([
+
+                'stock' => $p_stock,
+
+            ])->save();
+        }
+        //return $result;
+        
+    }
+
+
 }

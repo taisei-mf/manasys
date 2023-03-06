@@ -18,6 +18,31 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!--<script src="{{ secure_asset('js/app.js') }}"></script>-->
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/js/jquery.tablesorter.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/css/theme.default.min.css">
+
+
+
+<!--
+<script type="text/javascript">
+$.ajax({
+     success : function(response){
+         alert('成功');
+     },
+     error: function(){
+         //通信失敗時の処
+         alert('通信失敗');
+     }
+ });
+</script>
+-->
+
 </head>
 <body>
     <div id="app">

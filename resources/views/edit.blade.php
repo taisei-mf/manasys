@@ -68,7 +68,7 @@
                     </table>
                 </div>
 
-                <form action="{{ route('detail', ['id' => $products -> id]) }}" method="post">
+                <form action="{{ route('detail', ['id' => $products -> id]) }}" method="get">
                     @csrf
                     <input type="submit" id="detail" name="detail" value="戻る" >
                 </form>

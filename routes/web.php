@@ -16,22 +16,17 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//Route::get('/', function () {
-//    return view('welcome');
-//})->name('/');
-
 Route::get('/','LoginController@showLoginForm')->name('/');
 
 
 //list表示
 Route::get('/list','ProductController@showList')->name('list');
-//Route::get('/pproto','ProductController@showList')->name('list');
 
 //regist表示
 Route::get('/regist','ProductController@showRegist')->name('regist');
 
 //detail表示
-Route::post('/detail{id}','ProductController@showDetail')->name('detail');
+Route::get('/detail{id}','ProductController@showDetail')->name('detail');
 
 //edit表示
 Route::get('/edit{id}','ProductController@showEdit')->name('edit');
@@ -42,30 +37,26 @@ Route::get('/edit{id}','ProductController@showEdit')->name('edit');
 Route::post('/regist','ProductController@registSubmit')->name('submit');
 
 //削除処理ルート
-//Route::post('/destroy{id}', [ManasysController::class, 'destroy'])->name('product.destroy');
 Route::post('/destroy{id}', 'ProductController@destroy')->name('product.destroy');
 
 //検索処理ルート
-Route::post('/list','ProductController@searchProduct')->name('product.search');
-Route::put('/list','ProductController@searchCompanyID')->name('company.search');
+//Route::post('/list', 'ProductController@search');
 
 //更新処理ルート
 Route::post('/edit{id}','ProductController@update')->name('update');
 
 
-//画像表示ルート
-//Route::get('/', [ItemController::class, 'index'])->name('item.index');
-//Route::get('/create', [ItemController::class, 'create'])->name('item.create');
-//Route::post('/store', [ItemController::class, 'store'])->name('item.store');
 
-Route::patch('/list', 'ProductController@index')->name('item.index');
-Route::get('/create', 'ProductController@create')->name('item.create');
-Route::post('/store', 'ProductController@store')->name('item.store');
+//ajax
+//Route::post('pproto', 'ProductController@shiken');
+
+Route::get('listDisplay', 'ProductController@listDisplay');
+Route::post('search', 'ProductController@search')->name('search');
+Route::post('delete', 'ProductController@Pdestroy');
 
 
-/*
-//結合表示 Companies & Products
-Route::get('/proto','ProductController@showProto'
+//結合表示練習 Companies & Products
+Route::get('/proto','ProductController@showProto',
 
     function(){
 
@@ -89,5 +80,16 @@ Route::get('/proto','ProductController@showProto'
     //人数表示
     echo $products->count()."個<br>";
 
-}
-)->name('hasmany');*/
+    }
+
+)->name('hasmany');
+
+
+//画像表示ルート
+//Route::get('/', [ItemController::class, 'index'])->name('item.index');
+//Route::get('/create', [ItemController::class, 'create'])->name('item.create');
+//Route::post('/store', [ItemController::class, 'store'])->name('item.store');
+
+Route::patch('/list', 'ProductController@index')->name('item.index');
+Route::get('/create', 'ProductController@create')->name('item.create');
+Route::post('/store', 'ProductController@store')->name('item.store');
