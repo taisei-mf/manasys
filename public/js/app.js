@@ -81,7 +81,7 @@ $('#list_display').click(
         $.each(res, function (index, value) {
 
           html = `
-                  <tr class="product-list">
+                  <tr class="target", id="target">
                     <td class="id">${value.id}</td>
                     <td class="image"><img src="http://localhost:8888/manasys/storage/app/public/${value.img_path}" width=15% height=15%"></td>
                     <td class="name">${value.product_name}</td>
@@ -170,7 +170,7 @@ $(function(){ // 遅延処理
           console.log("textStatus     : " + textStatus);    // タイムアウト、パースエラー
 
           html = `
-                  <tr class="product-list">
+                  <tr class="target", id="target">
                     <td class="id">${value.id}</td>
                     <td class="image"><img src="http://localhost:8888/manasys/storage/app/public/${value.img_path}" width=15% height=15%"></td>
                     <td class="name">${value.product_name}</td>
@@ -217,17 +217,22 @@ $(function(){ // 遅延処理
 
 //削除処理
   $(function() {
-    $(document).on('click', '.btn-dell', function() {
+    $(document).on('click', '.btn-dell', function(e) {
+      e.preventDefault();
   
       var deleteConfirm = confirm('削除してよろしいでしょうか？');
 
       if(deleteConfirm == true) {
+        e.preventDefault();
         var clickEle = $(this);
-        // 削除ボタンにユーザーIDをカスタムデータとして埋め込んでます。
+        // 削除ボタンにプロダクトIDをカスタムデータとして埋め込んでます。
         var productID = clickEle.attr('data-product_id');
 
+        console.log(clickEle.parents('tr'));
+        //clickEle.parents('.target').remove();
+
         $.ajax({
-          async:true,
+          //async:true,
           url:"delete",
           type: 'POST',
           headers: {
@@ -239,14 +244,22 @@ $(function(){ // 遅延処理
           },
         })
 
-       .done(function(res) {
+       /*.done(function(res) {
+          alert(res);
           // 通信が成功した場合、クリックした要素の親要素の <tr> を削除
-          $(this).parents('tr').remove();
-          $(this).unwrap();
+          //clickEle.parents('.target').remove();
+          //$(this).unwrap();
+          $('.target').eq(res.id).remove();
+          //$('#target').find('tr').slice(7).remove();
+          //$('#target').find('tbody tr').remove();
           
           console.log(res);
           console.log(clickEle.parents('tr'));
           alert(res);
+        })*/
+
+        .done(function(){
+          clickEle.parents('tr').remove();
         })
 
         .fail(function (jqXHR, textStatus, errorThrown) {
@@ -258,7 +271,7 @@ $(function(){ // 遅延処理
           console.log("errorThrown    : " + errorThrown.message); // 例外情報
           console.log("URL            : " + url);
           alert('ファイルの取得に失敗しました。');
-        })
+        });
       } else {
         (function(e) {
           e.preventDefault()

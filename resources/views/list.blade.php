@@ -71,7 +71,7 @@
 
                             <tbody>
                             @foreach ($products as $product)
-                                <tr class="product-list", id="{{ $product -> id }}">
+                                <tr class="target", id="target">
                                     <td class="id">{{ $product -> id }}</td>
                                     <?php
                                     $imgpath = $product -> img_path;
@@ -100,7 +100,7 @@
                                         <form class="delete_btn">
                                             <input data-product_id="{{$product->id}}" type="submit" class="btn-dell" name="delete" value="削除">
                                         </form>
-                                        
+
                                         <!--<button data-product_id="{{$product->id}}" type="submit" class="btn-dell" name="delete" value="削除">削除</button>-->
                                     </td>
 

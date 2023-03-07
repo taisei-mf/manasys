@@ -259,20 +259,8 @@ class ProductController extends Controller
         //$products = $this->product -> where('product_name', 'LIKE', "%{$product_name}%")->get();
         //$products = $this->product -> where('product_name', 'LIKE', "%" . $product_name . "%")->get();
         $companies = $this->company -> getListt();
-
-        //dd($products);
-
-        //return view('list', compact('products', 'companies'));
-
-        //echo($request->product_name);
-        //echo($product_name);
-        //echo("br");
-        //echo json_encode($request);
-
+        
         return response()->json($products);
-        //return $products;
-        //return response($products);
-        //return;
     }
 
     //一覧表示(ajax)
